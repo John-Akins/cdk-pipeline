@@ -8,11 +8,6 @@ export class WorkshopPipelineStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // This creates a new CodeCommit repository called 'WorkshopRepo'
-    const repo = new codecommit.Repository(this, 'WorkshopRepo', {
-      repositoryName: "WorkshopRepo"
-    });
-
     // The basic pipeline declaration. This sets the initial structure
     // of our pipeline
 
