@@ -1,6 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import * as codecommit from 'aws-cdk-lib/aws-codecommit';
 import { WorkshopPipelineStage } from './pipeline-stage';
 import { CodeBuildStep, CodePipeline, CodePipelineSource } from "aws-cdk-lib/pipelines";
 
@@ -11,10 +10,15 @@ export class WorkshopPipelineStack extends cdk.Stack {
     // The basic pipeline declaration. This sets the initial structure
     // of our pipeline
 
+    const gitHubSecretName = "github-token/john-akins";
+    const gitHubSecret = cdk.SecretValue.secretsManager(gitHubSecretName);
+    
     const pipeline = new CodePipeline(this, 'Pipeline', {
       pipelineName: 'WorkshopPipeline',
       synth: new CodeBuildStep('SynthStep', {
-        input: CodePipelineSource.gitHub("John-Akins/cdk-pipeline", "main"),
+        input: CodePipelineSource.gitHub("John-Akins/cdk-pipeline", "main", {
+          authentication: gitHubSecret
+        }),
         installCommands: [
           'npm install -g aws-cdk'
         ],

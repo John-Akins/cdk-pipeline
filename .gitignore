@@ -8,4 +8,5 @@ node_modules
 cdk.out
 !lambda/*.js
 !lambda/**.js
+!**/js/**.js
 misc-editor
