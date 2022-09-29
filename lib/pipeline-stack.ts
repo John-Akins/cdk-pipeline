@@ -10,7 +10,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
     // The basic pipeline declaration. This sets the initial structure
     // of our pipeline
 
-    const secretID = "GithubSecretJohnAkins";
+    const secretID = "githubtoken";
     const gitHubSecret = cdk.SecretValue.secretsManager(secretID);
     const pipeline = new CodePipeline(this, 'Pipeline', {
       pipelineName: 'WorkshopPipeline',
