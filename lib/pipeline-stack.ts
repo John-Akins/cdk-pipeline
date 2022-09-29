@@ -10,9 +10,8 @@ export class WorkshopPipelineStack extends cdk.Stack {
     // The basic pipeline declaration. This sets the initial structure
     // of our pipeline
 
-    const gitHubSecretName = "github-token/john-akins";
-    const gitHubSecret = cdk.SecretValue.secretsManager(gitHubSecretName);
-    
+    const secretID = "GithubSecretJohnAkins";
+    const gitHubSecret = cdk.SecretValue.secretsManager(secretID);
     const pipeline = new CodePipeline(this, 'Pipeline', {
       pipelineName: 'WorkshopPipeline',
       synth: new CodeBuildStep('SynthStep', {
@@ -26,8 +25,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
           'npm run build',
           'npx cdk synth'
         ]
-      }
-      )
+      })
     });
 
     const deploy = new WorkshopPipelineStage(this, 'Deploy');
